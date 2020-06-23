@@ -2,11 +2,15 @@ package com.example.controlleradvice.controller;
 
 import com.example.controlleradvice.common.R;
 import com.example.controlleradvice.services.TestService;
+import com.sun.istack.internal.NotNull;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.math.BigInteger;
 
 /**
  * @author 陈孟飞
@@ -38,12 +42,13 @@ public class TestController {
         return testService.test2();
     }
 
+    /**
+     * 捕获注解校验异常
+     * @param id
+     * @return
+     */
     @RequestMapping(value="test3")
-    public R test3() {
-        try {
-            return testService.test2();
-        } catch (Exception e) {
-            return R.error(e.getMessage());
-        }
+    public R test3(@NotNull @RequestParam  Integer id) {
+        return testService.test2();
     }
 }
